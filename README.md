@@ -1,4 +1,5 @@
 # Smart Data Analyst Bot
+![clean](https://github.com/user-attachments/assets/aea6dfaf-ff7a-4119-bf48-ebca30c3ac60)
 
 A fully-automated AI service that turns natural language questions into data queries and charts using the Model Context Protocol (MCP).
 
