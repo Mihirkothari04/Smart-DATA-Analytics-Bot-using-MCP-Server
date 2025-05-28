@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  # SQLite MCP Server
+  sqlite-mcp-server:
+    build:
+      context: ./mcp_servers/sqlite_server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./database:/app/database
+    environment:
+      - DB_PATH=/app/database/sample_data.db
+    restart: unless-stopped
+
+  # VegaLite MCP Server
+  vegalite-mcp-server:
+    build:
+      context: ./mcp_servers/vegalite_server
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+
+  # Web Interface (Streamlit)
+  web-interface:
+    build:
+      context: .
+      dockerfile: ./docker/web_interface.Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - SQLITE_MCP_SERVER=http://sqlite-mcp-server:8000
+      - VEGALITE_MCP_SERVER=http://vegalite-mcp-server:8000
+      - LLM_API_KEY=${LLM_API_KEY}
+    depends_on:
+      - sqlite-mcp-server
+      - vegalite-mcp-server
+    restart: unless-stopped

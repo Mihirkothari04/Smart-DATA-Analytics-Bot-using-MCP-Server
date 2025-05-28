@@ -1,0 +1,7 @@
+fastapi==0.95.0
+uvicorn==0.21.1
+pydantic==1.10.7
+sqlalchemy==2.0.9
+aiosqlite==0.18.0
+mcp-server==0.1.0
+python-dotenv==1.0.0
